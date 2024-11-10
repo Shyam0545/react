@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -7,17 +7,30 @@ import {
 import { data, type Person } from './makeData';
 import { useState } from "react";
 
+class App extends React.Component {
+    // Constructor
+    constructor(props: {}) {
+        super(props);
+        this.state = {
+            items: [],
+            DataisLoaded: false,
+        };
+    }
 
-export function App() {
-
-  fetch("http://localhost:5555/apache_pinot")
-    .then((res) => res.json())
-    .then((json) => {
-      setData(json)
-    });
-
+    // ComponentDidMount is used to
+    // execute the code
+    componentDidMount() {
+        fetch(
+            "http://localhost:5555/apache_pinot"
+        )
+            .then((res) => {
+                this.setState({
+                    items: res.data,
+                    DataisLoaded: true,
+                });
+            });
+    }
 }
-
 
 const Example = () => {
   const columns = useMemo<MRT_ColumnDef<Person>[]>(
@@ -93,6 +106,7 @@ const Example = () => {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
+
 const ExampleWithLocalizationProvider = () => (
   //App.tsx or AppProviders file
   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -101,4 +115,3 @@ const ExampleWithLocalizationProvider = () => (
 );
 
 export default ExampleWithLocalizationProvider;
-
