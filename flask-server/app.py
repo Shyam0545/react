@@ -42,7 +42,7 @@ def index():
 def get():
     dbresult = db()
     import json
-    with open('/home/donthireddy_shyam/react_final_python/flask-server', 'w', encoding='utf-8') as f:
+    with open('../data.json', 'w', encoding='utf-8') as f:
         json.dump(dbresult, f, ensure_ascii=False, indent=4)
         response = jsonify(dbresult)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -63,7 +63,7 @@ def get_pinot_trans():
     for result in rv:
         json_data.append(dict(zip(row_headers,result)))
     print("json.dumps(json_data)",json.dumps(json_data))
-    with open('/home/donthireddy_shyam/react_final_python/flask-server/apache.json', 'w') as f:
+    with open('../apachet.json', 'w') as f:
         json.dump(json_data, f)
     json_data = json.dumps(json_data)
     response = jsonify(json_data)
